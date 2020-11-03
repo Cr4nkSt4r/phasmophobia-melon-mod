@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Il2CppSystem;
 using MelonLoader;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Console = System.Console;
 using String = System.String;
+using Object = UnityEngine.Object;
 
 namespace PhasmoMelonMod
 {
@@ -137,26 +139,46 @@ namespace PhasmoMelonMod
             {
                 if (initializedScene > 1)
                 {
-                    if (GUI.Button(new Rect(500f, 2f, 100f, 20f), "Hunt") && levelController != null)
+                    if (GUI.Button(new Rect(500f, 2f, 150f, 20f), "Hunt") && levelController != null)
                     {
                         Trolling.Hunt();
                     }
-                    if (GUI.Button(new Rect(500f, 22f, 100f, 20f), "Idle") && levelController != null)
+                    if (GUI.Button(new Rect(500f, 22f, 150f, 20f), "Idle") && levelController != null)
                     {
                         Trolling.Idle();
                     }
-                    if (GUI.Button(new Rect(500f, 42f, 100f, 20f), "Appear") && levelController != null)
+                    if (GUI.Button(new Rect(500f, 42f, 150f, 20f), "Appear") && levelController != null)
                     {
                         Trolling.Appear();
                     }
-                    if (GUI.Button(new Rect(500f, 62f, 100f, 20f), "Unappear") && levelController != null)
+                    if (GUI.Button(new Rect(500f, 62f, 150f, 20f), "Unappear") && levelController != null)
                     {
                         Trolling.UnAppear();
+                    }
+                    if (GUI.Button(new Rect(500f, 82f, 150f, 20f), "FuseBox") && levelController != null)
+                    {
+                        Trolling.FuseBox();
+                    }
+                    if (GUI.Button(new Rect(650f, 2f, 150f, 20f), "Lock Exit Doors") && levelController != null)
+                    {
+                        Trolling.LockDoors(1);
+                    }
+                    if (GUI.Button(new Rect(650f, 22f, 150f, 20f), "Lock All Doors") && levelController != null)
+                    {
+                        Trolling.LockDoors(2);
+                    }
+                    if (GUI.Button(new Rect(650f, 42f, 150f, 20f), "Unlock Exit Doors") && levelController != null)
+                    {
+                        Trolling.LockDoors(3);
+                    }
+                    if (GUI.Button(new Rect(650f, 62f, 150f, 20f), "Unlock All Doors") && levelController != null)
+                    {
+                        Trolling.LockDoors(4);
                     }
                 }
                 else
                 {
-                    GUI.Label(new Rect(500f, 2f, 300f, 50f), "<color=#F40000><b>Troll functions are not aviable in the lobby!</b></color>");
+                    GUI.Label(new Rect(500f, 2f, 300f, 50f), "<color=#F40000><b>Toll UI is not aviable in the lobby!</b></color>");
                 }
             }
 
@@ -164,19 +186,19 @@ namespace PhasmoMelonMod
             {
                 if (initializedScene == 1)
                 {
-                    if (GUI.Button(new Rect(600f, 2f, 100f, 20f), "+ 1.000$") && levelController == null)
+                    if (GUI.Button(new Rect(500f, 2f, 150f, 20f), "+ 1.000$") && levelController == null)
                     {
                         FileBasedPrefs.SetInt("PlayersMoney", FileBasedPrefs.GetInt("PlayersMoney", 0) + 1000);
                     }
-                    if (GUI.Button(new Rect(600f, 22f, 100f, 20f), "+ 100XP") && levelController == null)
+                    if (GUI.Button(new Rect(500f, 22f, 150f, 20f), "+ 100XP") && levelController == null)
                     {
                         FileBasedPrefs.SetInt("myTotalExp", FileBasedPrefs.GetInt("myTotalExp", 0) + 100);
                     }
-                    if (GUI.Button(new Rect(600f, 42f, 100f, 20f), "- 1.000$") && levelController == null)
+                    if (GUI.Button(new Rect(500f, 42f, 150f, 20f), "- 1.000$") && levelController == null)
                     {
                         FileBasedPrefs.SetInt("PlayersMoney", FileBasedPrefs.GetInt("PlayersMoney", 0) - 1000);
                     }
-                    if (GUI.Button(new Rect(600f, 62f, 100f, 20f), "- 1.000XP") && levelController == null)
+                    if (GUI.Button(new Rect(500f, 62f, 150f, 20f), "- 1.000XP") && levelController == null)
                     {
                         FileBasedPrefs.SetInt("myTotalExp", FileBasedPrefs.GetInt("myTotalExp", 0) - 1000);
                     }
@@ -202,6 +224,26 @@ namespace PhasmoMelonMod
             BasicInformations.Reset();
         }
 
+        private Player GetLocalPlayer()
+        {
+            if (players == null || players.Count == 0)
+            {
+                return null;
+            }
+            if (players.Count == 1)
+            {
+                return players[0];
+            }
+            foreach (Player player in players)
+            {
+                if (player != null && player.field_Public_PhotonView_0 != null && player.field_Public_PhotonView_0.AmOwner)
+                {
+                    return player;
+                }
+            }
+            return null;
+        }
+
         IEnumerator CollectGameObjects()
         {
             cameraMain = Camera.main;
@@ -212,7 +254,11 @@ namespace PhasmoMelonMod
             yield return new WaitForSeconds(0.15f);
             Debug.Out("dnaEvidences");
 
-            FuseBoxes = Object.FindObjectsOfType<FuseBox>().ToList<FuseBox>();
+            doors = Object.FindObjectsOfType<Door>().ToList<Door>() ?? null;
+            yield return new WaitForSeconds(0.15f);
+            Debug.Out("doors");
+
+            fuseBox = Object.FindObjectOfType<FuseBox>();
             yield return new WaitForSeconds(0.15f);
             Debug.Out("fuseBox");
 
@@ -250,7 +296,15 @@ namespace PhasmoMelonMod
                 yield return new WaitForSeconds(0.15f);
                 Debug.Out("player");
 
-                playerAnim = player.field_Public_Animator_0 ?? null;
+                players = Object.FindObjectsOfType<Player>().ToList<Player>() ?? null;
+                yield return new WaitForSeconds(0.15f);
+                Debug.Out("players");
+
+                myPlayer = GetLocalPlayer() ?? player;
+                Debug.Out("myPlayer");
+                yield return new WaitForSeconds(0.15f);
+
+                playerAnim = myPlayer.field_Public_Animator_0 ?? null;
                 yield return new WaitForSeconds(0.15f);
                 Debug.Out("playerAnim");
 
@@ -267,12 +321,18 @@ namespace PhasmoMelonMod
                     }
                 }
             }
+
             if (levelController != null)
             {
                 photonView = ghostAI.field_Public_PhotonView_0 ?? null;
                 yield return new WaitForSeconds(0.15f);
                 Debug.Out("photonView");
             }
+
+            serverManager = Object.FindObjectOfType<ServerManager>();
+            yield return new WaitForSeconds(0.15f);
+            Debug.Out("playerAnim");
+
             Debug.Out("-----------------------------");
             yield return null;
         }
@@ -280,20 +340,24 @@ namespace PhasmoMelonMod
         public static Transform boneTransform;
         public static Camera cameraMain;
         public static List<DNAEvidence> dnaEvidences;
+        public static List<Door> doors;
         public static GameController gameController;
         public static GhostActivity ghostActivity;
         public static GhostAI ghostAI;
         public static List<GhostAI> ghostAIs;
-        public static List<FuseBox> FuseBoxes;
+        public static FuseBox fuseBox;
         public static GhostController ghostController;
         public static GhostEventPlayer ghostEventPlayer;
         public static GhostInfo ghostInfo;
         public static LevelController levelController;
         public static Light light;
+        public static Player myPlayer;
         public static List<OuijaBoard> ouijaBoards;
         public static PhotonView photonView;
         public static Player player;
+        public static List<Player> players;
         public static Animator playerAnim;
+        public static ServerManager serverManager;
         public static String ghostNameAge;
         public static String ghostType;
         public static String evidence;

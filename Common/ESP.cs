@@ -46,15 +46,12 @@ namespace PhasmoMelonMod
                         }
                     }
                 }
-                if (Main.FuseBoxes != null)
+                if (Main.fuseBox != null)
                 {
-                    foreach (FuseBox fuseBox in Main.FuseBoxes)
+                    Vector3 vector3 = Main.cameraMain.WorldToScreenPoint(Main.fuseBox.transform.position);
+                    if (vector3.z > 0f)
                     {
-                        Vector3 vector3 = Main.cameraMain.WorldToScreenPoint(fuseBox.transform.position);
-                        if (vector3.z > 0f)
-                        {
-                            GUI.Label(new Rect(new Vector2(vector3.x, Screen.height - (vector3.y + 1f)), new Vector2(100f, 100f)), "<color=#EBC634><b>FuseBox</b></color>");
-                        }
+                        GUI.Label(new Rect(new Vector2(vector3.x, Screen.height - (vector3.y + 1f)), new Vector2(100f, 100f)), "<color=#EBC634><b>FuseBox</b></color>");
                     }
                 }
             }

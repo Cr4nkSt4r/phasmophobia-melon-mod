@@ -12,7 +12,7 @@ namespace PhasmoMelonMod
     {
         public static void Hunt()
         {
-            MelonLogger.Log("[+] Troll->Hunt: Toggled ");
+            MelonLogger.Log("[+] Troll->Hunt: Triggered ");
             Main.ghostAI.field_Public_Boolean_0 = true;
             Main.ghostAI.field_Public_Boolean_1 = true;
             Main.ghostAI.field_Public_Boolean_2 = true;
@@ -33,20 +33,13 @@ namespace PhasmoMelonMod
             Main.ghostAI.ChangeState(GhostAI.EnumNPublicSealedvaidwahufalidothfuapUnique.hunting, null, null);
             Main.ghostAI.field_Public_GhostInteraction_0.CreateAppearedEMF(Main.ghostAI.transform.position);
             Main.ghostAI.Appear(true);
-            //this.view.RPC("Hunting", PhotonTargets.All, new object[]
-            //{
-            //    true
-            //});
             Main.photonView.RPC("Hunting", RpcTarget.All, getRPCObject(1, true));
-            //this.view.RPC("SyncChasingPlayer", PhotonTargets.All, new object[]
-            //{
-            //    isChasing
-            //});
             Main.photonView.RPC("SyncChasingPlayer", RpcTarget.All, getRPCObject(1, true));
         }
+
         public static void Idle()
         {
-            MelonLogger.Log("[+] Troll->Idle: Toggled ");
+            MelonLogger.Log("[+] Troll->Idle: Triggered ");
             Main.ghostAI.field_Public_Boolean_0 = false;
             Main.ghostAI.field_Public_Boolean_1 = false;
             Main.ghostAI.field_Public_Boolean_2 = false;
@@ -62,36 +55,108 @@ namespace PhasmoMelonMod
             Main.ghostAI.StopGhostFromHunting();
             Main.ghostAI.UnAppear(false);
             Main.ghostAI.ChangeState(GhostAI.EnumNPublicSealedvaidwahufalidothfuapUnique.idle, null, null);
-            //this.view.RPC("Hunting", PhotonTargets.All, new object[]
-            //{
-            //    false
-            //});
             Main.photonView.RPC("Hunting", RpcTarget.All, getRPCObject(1, false));
-            //this.view.RPC("SyncChasingPlayer", PhotonTargets.All, new object[]
-            //{
-            //    isChasing
-            //});
             Main.photonView.RPC("SyncChasingPlayer", RpcTarget.All, getRPCObject(1, false));
         }
+
         public static void Appear()
         {
-            MelonLogger.Log("[+] Troll->Appear: Toggled ");
-            //this.view.RPC("MakeGhostAppear", PhotonTargets.All, new object[]
-            //{
-            //    true,
-            //    Random.Range(0, isEvent ? 2 : 3)
-            //});
-            Main.photonView.RPC("MakeGhostAppear", RpcTarget.All, getRPCObject(2, true));
+            MelonLogger.Log("[+] Troll->Appear: Triggered ");
+            Main.photonView.RPC("MakeGhostAppear", RpcTarget.All, getRPCObject(2, true, 0, 3));
         }
+
         public static void UnAppear()
         {
-            MelonLogger.Log("[+] Troll->UnAppear: Toggled ");
-            //this.view.RPC("MakeGhostAppear", PhotonTargets.All, new object[]
-            //{
-            //    false,
-            //    Random.Range(0, isEvent ? 2 : 3)
-            //});
-            Main.photonView.RPC("MakeGhostAppear", RpcTarget.All, getRPCObject(2, false));
+            MelonLogger.Log("[+] Troll->UnAppear: Triggered ");
+            Main.photonView.RPC("MakeGhostAppear", RpcTarget.All, getRPCObject(2, false, 0, 3));
+        }
+
+        public static void LockDoors(int lockState, int howMany = 0)
+        {
+            //Door::field_Public_Boolean_0 = locked
+            //Door::field_Public_Boolean_1 = closed
+            //Door::field_Public_Boolean_2 = canBeGrabbed
+            switch (lockState)
+            {
+                case 1:
+                    CloseAllExitDoors();
+                    MelonLogger.Log("[+] Troll->CloseAllExitDoors");
+                    break;
+                case 2:
+                    CloseAllRoomDoors();
+                    MelonLogger.Log("[+] Troll->CloseAllRoomDoors");
+                    break;
+                case 3:
+                    OpenAllExitDoors();
+                    MelonLogger.Log("[+] Troll->OpenAllExitDoors");
+                    break;
+                case 4:
+                    OpenAllRoomDoors();
+                    MelonLogger.Log("[+] Troll->OpenAllRoomDoors");
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public static void FuseBox()
+        {
+            MelonLogger.Log("[+] Troll->FuseBox: Triggered ");
+            PhotonView photonView = Main.fuseBox.view;
+            photonView.RPC("UseNetworked", RpcTarget.All, getRPCObject(1, false));
+        }
+
+        public static void CloseAllExitDoors()
+        {
+            foreach (Door exitDoor in Main.levelController.field_Public_ArrayOf_Door_1)
+            {
+                CloseLockDoor(exitDoor);
+            }
+        }
+        public static void CloseAllRoomDoors()
+        {
+            foreach (Door door in Main.doors)
+            {
+                CloseLockDoor(door);
+            }
+        }
+        public static void OpenAllExitDoors()
+        {
+            foreach (Door exitDoor in Main.levelController.field_Public_ArrayOf_Door_1)
+            {
+                OpenUnlockDoor(exitDoor);
+            }
+        }
+        public static void OpenAllRoomDoors()
+        {
+            foreach (Door door in Main.doors)
+            {
+                OpenUnlockDoor(door);
+            }
+        }
+
+        private static void CloseLockDoor(Door door)
+        {
+            PhotonView photonView = door.field_Public_PhotonView_0;
+            door.DisableOrEnableDoor(false);
+            door.LockDoor();
+            door.transform.localRotation = Quaternion.identity;
+            Quaternion localRotation = door.transform.localRotation;
+            Vector3 eulerAngles = localRotation.eulerAngles;
+            eulerAngles.y = door.field_Public_Single_0;
+            localRotation.eulerAngles = eulerAngles;
+            door.transform.localRotation = localRotation;
+            photonView.RPC("SyncLockState", RpcTarget.All, getRPCObject(1, true));
+            photonView.RPC("NetworkedPlayLockSound", RpcTarget.All, getRPCObject(0, false));
+        }
+
+        private static void OpenUnlockDoor(Door door)
+        {
+            PhotonView photonView = door.field_Public_PhotonView_0;
+            door.DisableOrEnableDoor(true);
+            door.DisableOrEnableCollider(true);
+            door.UnlockDoor();
+            photonView.RPC("SyncLockState", RpcTarget.All, getRPCObject(1, false));
         }
 
         public static void Interact()
@@ -118,23 +183,64 @@ namespace PhasmoMelonMod
             return destination;
         }
 
-        private static Object[] getRPCObject(int i, bool isTrue)
+        private static Object[] getRPCObject(int i, bool isTrue = true, int rangeMin = 0, int rangeMax = 0, bool rangeFirst = false)
         {
             Debug.Out("getRPCObject");
             Object[] obj = new Object[i];
-            Boolean boolean = default(Boolean);
-            if (isTrue)
-                boolean.m_value = true;
-            obj[0] = boolean.BoxIl2CppObject();
-
-            if (i == 2)
+            if (i > 0)
             {
-                Int32 integer = default(Int32);
-                integer.m_value = Random.Range(0, 3);
-                obj[1] = integer.BoxIl2CppObject();
+                Boolean boolean = default(Boolean);
+                if (!rangeFirst)
+                {
+                    if (isTrue)
+                        boolean.m_value = true;
+                    else
+                        boolean.m_value = false;
+                    obj[0] = boolean.BoxIl2CppObject();
+
+                    if (i == 2)
+                    {
+                        Int32 integer = default(Int32);
+                        integer.m_value = Random.Range(rangeMin, rangeMax);
+                        obj[1] = integer.BoxIl2CppObject();
+                    }
+                }
+                else
+                {
+                    Int32 integer = default(Int32);
+                    integer.m_value = Random.Range(rangeMin, rangeMax);
+                    obj[0] = integer.BoxIl2CppObject();
+                }
             }
 
             return obj;
         }
+
+        //this.view.RPC("Hunting", PhotonTargets.All, new object[]
+        //{
+        //    false
+        //});
+        //this.view.RPC("SyncChasingPlayer", PhotonTargets.All, new object[]
+        //{
+        //    isChasing
+        //});
+        //this.view.RPC("MakeGhostAppear", PhotonTargets.All, new object[]
+        //{
+        //    true,
+        //    Random.Range(0, isEvent ? 2 : 3)
+        //});
+        //this.view.RPC("UseNetworked", PhotonTargets.AllBuffered, new object[]
+        //{
+        //    false
+        //});
+        //this.view.RPC("SyncLockState", PhotonTargets.AllBuffered, new object[]
+        //{
+        //    this.locked
+        //});
+        //this.view.RPC("UnlockDoorTimer", PhotonTargets.AllBuffered, new object[]
+        //{
+        //    UnityEngine.Random.Range(5f, 20f)
+        //});
+        //this.view.RPC("NetworkedPlayLockSound", PhotonTargets.All, Array.Empty<object>());
     }
 }

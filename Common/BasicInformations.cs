@@ -57,7 +57,7 @@ namespace PhasmoMelonMod
                 firstRun = false;
             }
 
-            Main.myPlayerSanity = Math.Round(100 - Main.player.field_Public_Single_0, 0).ToString();
+            Main.myPlayerSanity = Math.Round(100 - Main.myPlayer.field_Public_Single_0, 0).ToString();
 
             if (Main.levelController != null && Main.ghostAI != null)
             {

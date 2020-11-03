@@ -1,4 +1,4 @@
-# Phasmophobia MelonLoader Mod
+# Phasmophobia MelonLoader Mod (Outdated when beta branch goes live)
 
 Just an private project to learn some basic programming of Unreal Engine Mods with the help of MelonLoader.  
 Place the generated DLL into the MelonLoader Mods folder.   
@@ -12,7 +12,9 @@ Place the generated DLL into the MelonLoader Mods folder.
 \- Revealed Evidence  
 \- Own Insanity  
 \- Active and completed Missions  
-\- Console Window for Logging (MelonLoader)
+\- Console Window for Logging (MelonLoader)  
+\- Ghost actions: Hunt/Idle/Appear/Disappear  
+\- Close+Lock/Open+Unlock Exit/All doors
 
 
 **Hotkeys**  
@@ -25,11 +27,12 @@ Delete = Enable debug output
 
 
 **Screenshots**  
-\- [Mod v.1](Images/v1.png)  
-\- [Mod v.2](Images/v2.png)  
-\- [Mod v.3](Images/v3.png)  
+\- [Mod v.4.3](Images/v4.3.png)  
+\- [Mod v.4.2](Images/v4.2.png)  
 \- [Mod v.4](Images/v4.png)  
-\- [Mod v.4.2](Images/v4.2.png)
+\- [Mod v.3](Images/v3.png)  
+\- [Mod v.2](Images/v2.png)  
+\- [Mod v.1](Images/v1.png)
 
 
 # How to build
