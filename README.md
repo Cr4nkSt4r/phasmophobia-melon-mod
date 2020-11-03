@@ -27,7 +27,7 @@ Delete = Enable debug output
 
 **THIS FORK**
 * H = Force ghost to hunt
-* I = Force ghost to interact with Door/Book/Objects
+* I = Force ghost to interact with doors / book / objects
 * O = Force ghost to appear
 * P = Force ghost to stop hunting / appearing
 * L = Lock all exit doors
