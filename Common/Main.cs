@@ -90,6 +90,26 @@ namespace PhasmoMelonMod
                 CheatToggles.enableDebug = !CheatToggles.enableDebug;
                 MelonLogger.Log("[+] Debug: Toggled " + (CheatToggles.enableDebug ? "On" : "Off"));
             }
+
+            if (keyboard.hKey.wasPressedThisFrame)
+            {
+                Trolling.Hunt();
+            }
+
+            if (keyboard.iKey.wasPressedThisFrame)
+            {
+                Trolling.Interact();
+            }
+
+            if (keyboard.oKey.wasPressedThisFrame)
+            {
+                Trolling.Appear();
+            }
+
+            if (keyboard.pKey.wasPressedThisFrame)
+            {
+                Trolling.Idle();
+            }
         }
         public override void OnGUI()
         {
@@ -200,6 +220,10 @@ namespace PhasmoMelonMod
             yield return new WaitForSeconds(0.15f);
             Debug.Out("gameController");
 
+            ghostActivity = Object.FindObjectOfType<GhostActivity>();
+            yield return new WaitForSeconds(0.15f);
+            Debug.Out("ghostActivity");
+
             ghostAI = Object.FindObjectOfType<GhostAI>();
             yield return new WaitForSeconds(0.15f);
             Debug.Out("ghostAI");
@@ -257,6 +281,7 @@ namespace PhasmoMelonMod
         public static Camera cameraMain;
         public static List<DNAEvidence> dnaEvidences;
         public static GameController gameController;
+        public static GhostActivity ghostActivity;
         public static GhostAI ghostAI;
         public static List<GhostAI> ghostAIs;
         public static List<FuseBox> FuseBoxes;

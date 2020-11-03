@@ -94,6 +94,11 @@ namespace PhasmoMelonMod
             Main.photonView.RPC("MakeGhostAppear", RpcTarget.All, getRPCObject(2, false));
         }
 
+        public static void Interact()
+        {
+            MelonLogger.Log("[+] Troll->Interact: Toggled ");
+            Main.ghostActivity.Interact();
+        }
 
         private static Vector3 getDestination()
         {
