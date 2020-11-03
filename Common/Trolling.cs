@@ -161,7 +161,7 @@ namespace PhasmoMelonMod
 
         public static void Interact()
         {
-            MelonLogger.Log("[+] Troll->Interact: Toggled ");
+            MelonLogger.Log("[+] Troll->Interact: Triggered ");
             Main.ghostActivity.Interact();
         }
 

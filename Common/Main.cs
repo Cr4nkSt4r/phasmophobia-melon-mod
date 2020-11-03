@@ -98,6 +98,11 @@ namespace PhasmoMelonMod
                 Trolling.Hunt();
             }
 
+            if (keyboard.uKey.wasPressedThisFrame)
+            {
+                Trolling.LockDoors(3);
+            }
+
             if (keyboard.iKey.wasPressedThisFrame)
             {
                 Trolling.Interact();
@@ -111,6 +116,11 @@ namespace PhasmoMelonMod
             if (keyboard.pKey.wasPressedThisFrame)
             {
                 Trolling.Idle();
+            }
+
+            if (keyboard.lKey.wasPressedThisFrame)
+            {
+                Trolling.LockDoors(1);
             }
         }
         public override void OnGUI()
