@@ -24,12 +24,14 @@ Left Arrow = Information Box
 Right Arrow = Trolling UI  
 Insert = Cheat UI  
 Delete = Enable debug output
-H = Force ghost to hunt
-I = Force ghost to interact with Door/Book/Objects
-O = Force ghost to appear
-P = Force ghost to stop hunting / appearing
-L = Lock all exit doors
-U = Unlock all exit doors
+
+**THIS FORK**
+* H = Force ghost to hunt
+* I = Force ghost to interact with Door/Book/Objects
+* O = Force ghost to appear
+* P = Force ghost to stop hunting / appearing
+* L = Lock all exit doors
+* U = Unlock all exit doors
 
 
 **Screenshots**  
