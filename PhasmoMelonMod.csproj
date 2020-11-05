@@ -32,45 +32,45 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\MelonLoader\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\Games\Steam\steamapps\common\Phasmophobia\MelonLoader\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>..\..\MelonLoader\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\Games\Steam\steamapps\common\Phasmophobia\MelonLoader\Managed\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="Il2Cppmscorlib">
-      <HintPath>..\..\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\Games\Steam\steamapps\common\Phasmophobia\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
     </Reference>
     <Reference Include="MelonLoader.ModHandler">
-      <HintPath>..\..\MelonLoader\MelonLoader.ModHandler.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\Games\Steam\steamapps\common\Phasmophobia\MelonLoader\MelonLoader.ModHandler.dll</HintPath>
     </Reference>
     <Reference Include="PhotonRealtime">
-      <HintPath>..\..\MelonLoader\Managed\PhotonRealtime.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\Games\Steam\steamapps\common\Phasmophobia\MelonLoader\Managed\PhotonRealtime.dll</HintPath>
     </Reference>
     <Reference Include="PhotonUnityNetworking">
-      <HintPath>..\..\MelonLoader\Managed\PhotonUnityNetworking.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\Games\Steam\steamapps\common\Phasmophobia\MelonLoader\Managed\PhotonUnityNetworking.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="UnhollowerBaseLib">
-      <HintPath>..\..\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\Games\Steam\steamapps\common\Phasmophobia\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
     </Reference>
     <Reference Include="Unity.InputSystem">
-      <HintPath>..\..\MelonLoader\Managed\Unity.InputSystem.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\Games\Steam\steamapps\common\Phasmophobia\MelonLoader\Managed\Unity.InputSystem.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
-      <HintPath>..\..\MelonLoader\Managed\UnityEngine.AIModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\Games\Steam\steamapps\common\Phasmophobia\MelonLoader\Managed\UnityEngine.AIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AnimationModule">
-      <HintPath>..\..\MelonLoader\Managed\UnityEngine.AnimationModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\Games\Steam\steamapps\common\Phasmophobia\MelonLoader\Managed\UnityEngine.AnimationModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\Games\Steam\steamapps\common\Phasmophobia\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>..\..\MelonLoader\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\Games\Steam\steamapps\common\Phasmophobia\MelonLoader\Managed\UnityEngine.IMGUIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>..\..\MelonLoader\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\Games\Steam\steamapps\common\Phasmophobia\MelonLoader\Managed\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
