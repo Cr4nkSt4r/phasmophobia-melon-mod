@@ -28,10 +28,12 @@ Insert = Toggle GUI
 Delete = Enable debug output  
 H = Force ghost to hunt  
 I = Force ghost to interact with Door/Book/Objects  
+K = Force ghost to make a random event  
 O = Force ghost to appear  
 P = Force ghost to stop hunting / appearing  
 L = Lock all exit doors  
 U = Unlock all exit doors  
+X = Switch Fusebox On / Off  
 
 **Screenshots**  
 \- [Mod v.5](Images/v5.png)  

@@ -114,6 +114,11 @@ namespace PhasmoMelonMod
             PhotonView photonView = Main.fuseBox.view;
             photonView.RPC("UseNetworked", RpcTarget.All, getRPCObject(1, false));
         }
+        public static void RandomEvent()
+        {
+            MelonLogger.Log("[+] Troll->RandomEvent: Triggered ");
+            Main.ghostAI.RandomEvent();
+        }
 
         public static void CloseAllExitDoors()
         {

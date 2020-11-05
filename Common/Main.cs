@@ -97,6 +97,12 @@ namespace PhasmoMelonMod
                 CheatToggles.enableDebug = !CheatToggles.enableDebug;
                 MelonLogger.Log("[+] Debug: Toggled " + (CheatToggles.enableDebug ? "On" : "Off"));
             }
+
+            if (keyboard.xKey.wasPressedThisFrame && !CheatToggles.guiEnabled)
+            {
+                Trolling.FuseBox();
+            }
+
             if (keyboard.hKey.wasPressedThisFrame && !CheatToggles.guiEnabled)
             {
                 Trolling.Hunt();
@@ -105,6 +111,11 @@ namespace PhasmoMelonMod
             if (keyboard.iKey.wasPressedThisFrame && !CheatToggles.guiEnabled)
             {
                 Trolling.Interact();
+            }
+
+            if (keyboard.kKey.wasPressedThisFrame && !CheatToggles.guiEnabled)
+            {
+                Trolling.RandomEvent();
             }
 
             if (keyboard.oKey.wasPressedThisFrame && !CheatToggles.guiEnabled)
