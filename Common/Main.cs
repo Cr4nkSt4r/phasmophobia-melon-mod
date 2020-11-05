@@ -71,20 +71,25 @@ namespace PhasmoMelonMod
                 }
             }
 
-            if (keyboard.rightArrowKey.wasPressedThisFrame)
-            {
-                CheatToggles.enableTrolling = !CheatToggles.enableTrolling;
-                MelonLogger.Log("[+] Trolling UI: Toggled " + (CheatToggles.enableTrolling ? "On" : "Off"));
-                CheatToggles.enableCheating = false;
-                MelonLogger.Log("[+] Cheating UI: Toggled " + (CheatToggles.enableCheating ? "On" : "Off"));
-            }
-
             if (keyboard.insertKey.wasPressedThisFrame)
             {
-                CheatToggles.enableCheating = !CheatToggles.enableCheating;
-                MelonLogger.Log("[+] Cheating UI: Toggled " + (CheatToggles.enableCheating ? "On" : "Off"));
-                CheatToggles.enableTrolling = false;
-                MelonLogger.Log("[+] Trolling UI: Toggled " + (CheatToggles.enableTrolling ? "On" : "Off"));
+                CheatToggles.guiEnabled = !CheatToggles.guiEnabled;
+                MelonLogger.Log("[+] GUI: Toggled " + (CheatToggles.guiEnabled ? "On" : "Off"));
+
+                if(CheatToggles.guiEnabled)
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                    if (myPlayer != null)
+                        myPlayer.field_Public_FirstPersonController_0.enabled = false;
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                    if (myPlayer != null)
+                        myPlayer.field_Public_FirstPersonController_0.enabled = true;
+                }
             }
 
             if (keyboard.deleteKey.wasPressedThisFrame)
@@ -92,33 +97,30 @@ namespace PhasmoMelonMod
                 CheatToggles.enableDebug = !CheatToggles.enableDebug;
                 MelonLogger.Log("[+] Debug: Toggled " + (CheatToggles.enableDebug ? "On" : "Off"));
             }
-
-            if (keyboard.hKey.wasPressedThisFrame)
+            if (keyboard.hKey.wasPressedThisFrame && !CheatToggles.guiEnabled)
             {
                 Trolling.Hunt();
             }
 
-            if (keyboard.uKey.wasPressedThisFrame)
-            {
-                Trolling.LockDoors(3);
-            }
-
-            if (keyboard.iKey.wasPressedThisFrame)
+            if (keyboard.iKey.wasPressedThisFrame && !CheatToggles.guiEnabled)
             {
                 Trolling.Interact();
             }
 
-            if (keyboard.oKey.wasPressedThisFrame)
+            if (keyboard.oKey.wasPressedThisFrame && !CheatToggles.guiEnabled)
             {
                 Trolling.Appear();
             }
 
-            if (keyboard.pKey.wasPressedThisFrame)
+            if (keyboard.pKey.wasPressedThisFrame && !CheatToggles.guiEnabled)
             {
                 Trolling.Idle();
             }
-
-            if (keyboard.lKey.wasPressedThisFrame)
+            if (keyboard.uKey.wasPressedThisFrame && !CheatToggles.guiEnabled)
+            {
+                Trolling.LockDoors(3);
+            }
+            if (keyboard.lKey.wasPressedThisFrame && !CheatToggles.guiEnabled)
             {
                 Trolling.LockDoors(1);
             }
@@ -145,7 +147,7 @@ namespace PhasmoMelonMod
             if (CheatToggles.enableEsp)
                 ESP.Enable();
 
-            if(CheatToggles.enableTrolling)
+            if(CheatToggles.guiEnabled)
             {
                 if (initializedScene > 1)
                 {
@@ -185,39 +187,61 @@ namespace PhasmoMelonMod
                     {
                         Trolling.LockDoors(4);
                     }
-                }
-                else
-                {
-                    GUI.Label(new Rect(500f, 2f, 300f, 50f), "<color=#F40000><b>Toll UI is not aviable in the lobby!</b></color>");
-                }
-            }
+                    if (GUI.Button(new Rect(800f, 2f, 150f, 20f), "Default Speed") && levelController != null)
+                    {
+                        player.field_Public_FirstPersonController_0.m_WalkSpeed = 1.6f;
+                        player.field_Public_FirstPersonController_0.m_RunSpeed = 2.6f;
+                    }
+                    GUI.SetNextControlName("changeSpeed");
+                    walkSpeedModifierString = GUI.TextArea(new Rect(800f, 22f, 150f, 20f), walkSpeedModifierString);
+                    if (GUI.Button(new Rect(800f, 42f, 150f, 20f), "Set Speed") && levelController != null)
+                    {
+                        GUI.FocusControl("changeSpeed");
+                        walkSpeedModifierInt = Int32.Parse(walkSpeedModifierString);
+                        if (walkSpeedModifierInt > 0 && walkSpeedModifierInt < 99)
+                        {
+                            player.field_Public_FirstPersonController_0.m_WalkSpeed = 3.2f * walkSpeedModifierInt;
+                            player.field_Public_FirstPersonController_0.m_RunSpeed = 5.2f * walkSpeedModifierInt;
 
-            if (CheatToggles.enableCheating)
-            {
-                if (initializedScene == 1)
-                {
-                    if (GUI.Button(new Rect(500f, 2f, 150f, 20f), "+ 1.000$") && levelController == null)
-                    {
-                        FileBasedPrefs.SetInt("PlayersMoney", FileBasedPrefs.GetInt("PlayersMoney", 0) + 1000);
-                    }
-                    if (GUI.Button(new Rect(500f, 22f, 150f, 20f), "+ 100XP") && levelController == null)
-                    {
-                        FileBasedPrefs.SetInt("myTotalExp", FileBasedPrefs.GetInt("myTotalExp", 0) + 100);
-                    }
-                    if (GUI.Button(new Rect(500f, 42f, 150f, 20f), "- 1.000$") && levelController == null)
-                    {
-                        FileBasedPrefs.SetInt("PlayersMoney", FileBasedPrefs.GetInt("PlayersMoney", 0) - 1000);
-                    }
-                    if (GUI.Button(new Rect(500f, 62f, 150f, 20f), "- 1.000XP") && levelController == null)
-                    {
-                        FileBasedPrefs.SetInt("myTotalExp", FileBasedPrefs.GetInt("myTotalExp", 0) - 1000);
+                            MelonLogger.Log("[+] Set walk/run speed x " + walkSpeedModifierInt);
+                        }
+                        else
+                        {
+                            walkSpeedModifierInt = 1;
+                            MelonLogger.Log("Speed modifier not between 0-99");
+                        }
                     }
                 }
                 else
                 {
-                    GUI.Label(new Rect(500f, 2f, 300f, 50f), "<color=#F40000><b>XP & Money only aviable in the lobby!</b></color>");
+                    if (initializedScene == 1)
+                    {
+                        if (GUI.Button(new Rect(500f, 2f, 150f, 20f), "+ 1.000$") && levelController == null)
+                        {
+                            FileBasedPrefs.SetInt("PlayersMoney", FileBasedPrefs.GetInt("PlayersMoney", 0) + 1000);
+                        }
+                        if (GUI.Button(new Rect(500f, 22f, 150f, 20f), "+ 100XP") && levelController == null)
+                        {
+                            FileBasedPrefs.SetInt("myTotalExp", FileBasedPrefs.GetInt("myTotalExp", 0) + 100);
+                        }
+                        if (GUI.Button(new Rect(500f, 42f, 150f, 20f), "- 1.000$") && levelController == null)
+                        {
+                            FileBasedPrefs.SetInt("PlayersMoney", FileBasedPrefs.GetInt("PlayersMoney", 0) - 1000);
+                        }
+                        if (GUI.Button(new Rect(500f, 62f, 150f, 20f), "- 1.000XP") && levelController == null)
+                        {
+                            FileBasedPrefs.SetInt("myTotalExp", FileBasedPrefs.GetInt("myTotalExp", 0) - 1000);
+                        }
+                        GUI.SetNextControlName("changeName");
+                        playerName = GUI.TextArea(new Rect(650f, 2f, 150f, 20f), playerName);
+                        if (GUI.Button(new Rect(650f, 22f, 150f, 20f), "Change Name"))
+                        {
+                            GUI.FocusControl("changeName");
+                            PhotonNetwork.NickName = playerName;
+                            MelonLogger.Log("[+] Set name: " + playerName);
+                        }
+                    }
                 }
-               
             }
         }
         public override void OnModSettingsApplied()
@@ -227,10 +251,9 @@ namespace PhasmoMelonMod
         private void DisableAll()
         {
             CheatToggles.enableBasicInformations = false;
-            CheatToggles.enableCheating = false;
+            CheatToggles.guiEnabled = false;
             CheatToggles.enableEsp = false;
             CheatToggles.enableFullbright = false;
-            CheatToggles.enableTrolling = false;
             BasicInformations.Reset();
         }
 
@@ -286,7 +309,11 @@ namespace PhasmoMelonMod
 
             ghostAIs = Object.FindObjectsOfType<GhostAI>().ToList<GhostAI>();
             yield return new WaitForSeconds(0.15f);
-            Debug.Out("ghostAIs");
+            Debug.Out("ghostAIs"); 
+            
+            ghostActivity = Object.FindObjectOfType<GhostActivity>();
+            yield return new WaitForSeconds(0.15f);
+            Debug.Out("ghostActivity");
 
             ghostInfo = Object.FindObjectOfType<GhostInfo>();
             yield return new WaitForSeconds(0.15f);
@@ -356,6 +383,7 @@ namespace PhasmoMelonMod
         public static GhostAI ghostAI;
         public static List<GhostAI> ghostAIs;
         public static FuseBox fuseBox;
+        public static GhostActivity ghostActivity;
         public static GhostController ghostController;
         public static GhostEventPlayer ghostEventPlayer;
         public static GhostInfo ghostInfo;
@@ -378,5 +406,8 @@ namespace PhasmoMelonMod
         private static bool canRun = true;
         private static bool isRunning = true;
         private static int initializedScene;
+        private static string walkSpeedModifierString;
+        private static int walkSpeedModifierInt = 1;
+        private static string playerName;
     }
 }

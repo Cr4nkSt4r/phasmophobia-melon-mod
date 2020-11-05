@@ -33,8 +33,9 @@ namespace PhasmoMelonMod
             Main.ghostAI.ChangeState(GhostAI.EnumNPublicSealedvaidwahufalidothfuapUnique.hunting, null, null);
             Main.ghostAI.field_Public_GhostInteraction_0.CreateAppearedEMF(Main.ghostAI.transform.position);
             Main.ghostAI.Appear(true);
-            Main.photonView.RPC("Hunting", RpcTarget.All, getRPCObject(1, true));
-            Main.photonView.RPC("SyncChasingPlayer", RpcTarget.All, getRPCObject(1, true));
+            PhotonView photonView = Main.ghostAI.field_Public_PhotonView_0;
+            photonView.RPC("Hunting", RpcTarget.All, getRPCObject(1, true));
+            photonView.RPC("SyncChasingPlayer", RpcTarget.All, getRPCObject(1, true));
         }
 
         public static void Idle()
@@ -55,20 +56,28 @@ namespace PhasmoMelonMod
             Main.ghostAI.StopGhostFromHunting();
             Main.ghostAI.UnAppear(false);
             Main.ghostAI.ChangeState(GhostAI.EnumNPublicSealedvaidwahufalidothfuapUnique.idle, null, null);
-            Main.photonView.RPC("Hunting", RpcTarget.All, getRPCObject(1, false));
-            Main.photonView.RPC("SyncChasingPlayer", RpcTarget.All, getRPCObject(1, false));
+            PhotonView photonView = Main.ghostAI.field_Public_PhotonView_0;
+            photonView.RPC("Hunting", RpcTarget.All, getRPCObject(1, false));
+            photonView.RPC("SyncChasingPlayer", RpcTarget.All, getRPCObject(1, false));
         }
 
         public static void Appear()
         {
             MelonLogger.Log("[+] Troll->Appear: Triggered ");
-            Main.photonView.RPC("MakeGhostAppear", RpcTarget.All, getRPCObject(2, true, 0, 3));
+            PhotonView photonView = Main.ghostAI.field_Public_PhotonView_0;
+            photonView.RPC("MakeGhostAppear", RpcTarget.All, getRPCObject(2, true, 0, 3));
         }
 
         public static void UnAppear()
         {
             MelonLogger.Log("[+] Troll->UnAppear: Triggered ");
-            Main.photonView.RPC("MakeGhostAppear", RpcTarget.All, getRPCObject(2, false, 0, 3));
+            PhotonView photonView = Main.ghostAI.field_Public_PhotonView_0;
+            photonView.RPC("MakeGhostAppear", RpcTarget.All, getRPCObject(2, false, 0, 3));
+        }
+        public static void Interact()
+        {
+            MelonLogger.Log("[+] Troll->Interact: Triggered ");
+            Main.ghostActivity.Interact();
         }
 
         public static void LockDoors(int lockState, int howMany = 0)

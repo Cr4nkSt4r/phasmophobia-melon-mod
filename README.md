@@ -1,40 +1,40 @@
-# Phasmophobia MelonLoader Mod (Outdated when beta branch goes live)
+# Phasmophobia MelonLoader Mod - Outdated
 
-Just an private project to learn some basic programming of Unreal Engine Mods with the help of MelonLoader.  
+Just an private project to learn some basic programming of Unity Engine Mods with the help of MelonLoader.  
 Place the generated DLL into the MelonLoader Mods folder.   
 
 
 **Features**  
 \- Simple Box ESP  
 \- Bone/OuijaBoard/FuseBox ESP  
-\- Fullbright Mode  
-\- Basic Ghost Informations (Ghost Name/Type/State, responds to)  
-\- Revealed Evidence  
-\- Own Insanity  
-\- Active and completed Missions  
-\- Console Window for Logging (MelonLoader)  
-\- Ghost actions: Hunt/Idle/Appear/Disappear  
-\- Close+Lock/Open+Unlock Exit/All doors
+\- Fullbright mode  
+\- Basic ghost informations (Ghost Name/Type/State, responds to)  
+\- Revealed evidence  
+\- Own sanity  
+\- Show active and completed missions  
+\- Console window for logging (MelonLoader)  
+\- Ghost actions: Hunt/Idle/Appear/Disappear/Interact  
+\- Add/Remove XP/Money  
+\- Change speed multiplier  
+\- Close+Lock/Open+Unlock Exit/All doors  
+\- Change player name
 
 
 **Hotkeys**  
 Up Arrow = ESP  
 Down Arrow = Fullbright  
-Left Arrow = Information Box  
-Right Arrow = Trolling UI  
-Insert = Cheat UI  
-Delete = Enable debug output
-
-**THIS FORK**
-* H = Force ghost to hunt
-* I = Force ghost to interact with doors / book / objects
-* O = Force ghost to appear
-* P = Force ghost to stop hunting / appearing
-* L = Lock all exit doors
-* U = Unlock all exit doors
-
+Left Arrow = Information box  
+Insert = Toggle GUI  
+Delete = Enable debug output  
+H = Force ghost to hunt  
+I = Force ghost to interact with Door/Book/Objects  
+O = Force ghost to appear  
+P = Force ghost to stop hunting / appearing  
+L = Lock all exit doors  
+U = Unlock all exit doors  
 
 **Screenshots**  
+\- [Mod v.5](Images/v5.png)  
 \- [Mod v.4.3](Images/v4.3.png)  
 \- [Mod v.4.2](Images/v4.2.png)  
 \- [Mod v.4](Images/v4.png)  
@@ -55,8 +55,8 @@ to link to your Steams Phasmophobia directory
 
 # Credits
 **Fullbright:** `ShieldSupporter` for sharing the code from `Plagues`  
-**2D Box ESP:** `EBro912`  
-**Others:** `HYPExMon5ter`
+**2D Box ESP idea:** `EBro912`  
+**Others:** `HYPExMon5ter`, `Martin951`, `tecnocat`
 
 
 # License
