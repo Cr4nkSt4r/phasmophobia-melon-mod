@@ -299,10 +299,6 @@ namespace PhasmoMelonMod
             yield return new WaitForSeconds(0.15f);
             Debug.Out("gameController");
 
-            ghostActivity = Object.FindObjectOfType<GhostActivity>();
-            yield return new WaitForSeconds(0.15f);
-            Debug.Out("ghostActivity");
-
             ghostAI = Object.FindObjectOfType<GhostAI>();
             yield return new WaitForSeconds(0.15f);
             Debug.Out("ghostAI");
@@ -379,7 +375,6 @@ namespace PhasmoMelonMod
         public static List<DNAEvidence> dnaEvidences;
         public static List<Door> doors;
         public static GameController gameController;
-        public static GhostActivity ghostActivity;
         public static GhostAI ghostAI;
         public static List<GhostAI> ghostAIs;
         public static FuseBox fuseBox;

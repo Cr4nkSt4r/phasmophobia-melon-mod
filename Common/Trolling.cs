@@ -167,13 +167,6 @@ namespace PhasmoMelonMod
             door.UnlockDoor();
             photonView.RPC("SyncLockState", RpcTarget.All, getRPCObject(1, false));
         }
-
-        public static void Interact()
-        {
-            MelonLogger.Log("[+] Troll->Interact: Triggered ");
-            Main.ghostActivity.Interact();
-        }
-
         private static Vector3 getDestination()
         {
             Debug.Out("getDestination");
