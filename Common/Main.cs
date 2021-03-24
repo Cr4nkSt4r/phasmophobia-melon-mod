@@ -741,111 +741,117 @@ namespace C4PhasMod
 
         IEnumerator CollectGameObjects()
         {
-
-            Debug.Msg("isRunningTrue", 3);
-            isRunning = true;
-            Debug.Msg("cameraMain", 3);
-            cameraMain = Camera.main ?? null;
-            yield return new WaitForSeconds(0.15f);
-
-            Debug.Msg("dnaEvidences", 3);
-            dnaEvidences = Object.FindObjectsOfType<DNAEvidence>().ToList<DNAEvidence>() ?? null;
-            yield return new WaitForSeconds(0.15f);
-
-            Debug.Msg("doors", 3);
-            doors = Object.FindObjectsOfType<Door>().ToList<Door>() ?? null;
-            yield return new WaitForSeconds(0.15f);
-
-            Debug.Msg("fuseBox", 3);
-            fuseBox = Object.FindObjectOfType<FuseBox>() ?? null;
-            yield return new WaitForSeconds(0.15f);
-
-            Debug.Msg("gameController", 3);
-            gameController = Object.FindObjectOfType<GameController>() ?? null;
-            yield return new WaitForSeconds(0.15f);
-
-            Debug.Msg("ghostAI", 3);
-            ghostAI = Object.FindObjectOfType<GhostAI>() ?? null;
-            yield return new WaitForSeconds(0.15f);
-
-            Debug.Msg("ghostAIs", 3);
-            ghostAIs = Object.FindObjectsOfType<GhostAI>().ToList<GhostAI>() ?? null;
-            yield return new WaitForSeconds(0.15f);
-
-            Debug.Msg("ghostActivity", 3);
-            ghostActivity = Object.FindObjectOfType<GhostActivity>() ?? null;
-            yield return new WaitForSeconds(0.15f);
-
-            Debug.Msg("ghostInfo", 3);
-            ghostInfo = Object.FindObjectOfType<GhostInfo>() ?? null;
-            yield return new WaitForSeconds(0.15f);
-
-            Debug.Msg("levelController", 3);
-            levelController = Object.FindObjectOfType<LevelController>() ?? null;
-            yield return new WaitForSeconds(0.15f);
-
-            Debug.Msg("lightSwitch", 3);
-            lightSwitch = Object.FindObjectOfType<LightSwitch>() ?? null;
-            yield return new WaitForSeconds(0.15f);
-
-            Debug.Msg("lightSwitches", 3);
-            lightSwitches = Object.FindObjectsOfType<LightSwitch>().ToList<LightSwitch>() ?? null;
-            yield return new WaitForSeconds(0.15f);
-
-            Debug.Msg("soundController", 3);
-            soundController = Object.FindObjectOfType<SoundController>() ?? null;
-            yield return new WaitForSeconds(0.15f);
-
-            Debug.Msg("ouijaBoards", 3);
-            ouijaBoards = Object.FindObjectsOfType<OuijaBoard>().ToList<OuijaBoard>() ?? null;
-            yield return new WaitForSeconds(0.15f);
-
-            Debug.Msg("ouijaBoards", 3);
-            windows = Object.FindObjectsOfType<Window>().ToList<Window>() ?? null;
-            yield return new WaitForSeconds(0.15f);
-
-            if (Object.FindObjectOfType<Player>() != null)
-            {
-                Debug.Msg("player", 3);
-                player = Object.FindObjectOfType<Player>() ?? null;
+            try {
+                Debug.Msg("isRunningTrue", 3);
+                isRunning = true;
+                Debug.Msg("cameraMain", 3);
+                cameraMain = Camera.main ?? null;
                 yield return new WaitForSeconds(0.15f);
 
-                Debug.Msg("players", 3);
-                players = Object.FindObjectsOfType<Player>().ToList<Player>() ?? null;
+                Debug.Msg("dnaEvidences", 3);
+                dnaEvidences = Object.FindObjectsOfType<DNAEvidence>().ToList<DNAEvidence>() ?? null;
                 yield return new WaitForSeconds(0.15f);
 
-                Debug.Msg("playerStatsManager", 3);
-                playerStatsManager = Object.FindObjectOfType<PlayerStatsManager>() ?? null;
+                Debug.Msg("doors", 3);
+                doors = Object.FindObjectsOfType<Door>().ToList<Door>() ?? null;
                 yield return new WaitForSeconds(0.15f);
 
-                Debug.Msg("myPlayer", 3);
-                myPlayer = GetLocalPlayer() ?? player;
+                Debug.Msg("fuseBox", 3);
+                fuseBox = Object.FindObjectOfType<FuseBox>() ?? null;
                 yield return new WaitForSeconds(0.15f);
 
-                Debug.Msg("playerAnim", 3);
-                playerAnim = myPlayer.field_Public_Animator_0 ?? null;
+                Debug.Msg("gameController", 3);
+                gameController = Object.FindObjectOfType<GameController>() ?? null;
                 yield return new WaitForSeconds(0.15f);
 
-                if (playerAnim != null)
+                Debug.Msg("ghostAI", 3);
+                ghostAI = Object.FindObjectOfType<GhostAI>() ?? null;
+                yield return new WaitForSeconds(0.15f);
+
+                Debug.Msg("ghostAIs", 3);
+                ghostAIs = Object.FindObjectsOfType<GhostAI>().ToList<GhostAI>() ?? null;
+                yield return new WaitForSeconds(0.15f);
+
+                Debug.Msg("ghostActivity", 3);
+                ghostActivity = Object.FindObjectOfType<GhostActivity>() ?? null;
+                yield return new WaitForSeconds(0.15f);
+
+                Debug.Msg("ghostInfo", 3);
+                ghostInfo = Object.FindObjectOfType<GhostInfo>() ?? null;
+                yield return new WaitForSeconds(0.15f);
+
+                Debug.Msg("levelController", 3);
+                levelController = Object.FindObjectOfType<LevelController>() ?? null;
+                yield return new WaitForSeconds(0.15f);
+
+                Debug.Msg("lightSwitch", 3);
+                lightSwitch = Object.FindObjectOfType<LightSwitch>() ?? null;
+                yield return new WaitForSeconds(0.15f);
+
+                Debug.Msg("lightSwitches", 3);
+                lightSwitches = Object.FindObjectsOfType<LightSwitch>().ToList<LightSwitch>() ?? null;
+                yield return new WaitForSeconds(0.15f);
+
+                Debug.Msg("soundController", 3);
+                soundController = Object.FindObjectOfType<SoundController>() ?? null;
+                yield return new WaitForSeconds(0.15f);
+
+                Debug.Msg("ouijaBoards", 3);
+                ouijaBoards = Object.FindObjectsOfType<OuijaBoard>().ToList<OuijaBoard>() ?? null;
+                yield return new WaitForSeconds(0.15f);
+
+                Debug.Msg("ouijaBoards", 3);
+                windows = Object.FindObjectsOfType<Window>().ToList<Window>() ?? null;
+                yield return new WaitForSeconds(0.15f);
+
+                if (Object.FindObjectOfType<Player>() != null)
                 {
-                    Debug.Msg("boneTransform", 3);
-                    boneTransform = playerAnim.GetBoneTransform(HumanBodyBones.Head) ?? null;
+                    Debug.Msg("player", 3);
+                    player = Object.FindObjectOfType<Player>() ?? null;
+                    yield return new WaitForSeconds(0.15f);
+
+                    Debug.Msg("players", 3);
+                    players = Object.FindObjectsOfType<Player>().ToList<Player>() ?? null;
+                    yield return new WaitForSeconds(0.15f);
+
+                    Debug.Msg("playerStatsManager", 3);
+                    playerStatsManager = Object.FindObjectOfType<PlayerStatsManager>() ?? null;
+                    yield return new WaitForSeconds(0.15f);
+
+                    Debug.Msg("myPlayer", 3);
+                    myPlayer = GetLocalPlayer() ?? player;
+                    yield return new WaitForSeconds(0.15f);
+
+                    Debug.Msg("playerAnim", 3);
+                    playerAnim = myPlayer.field_Public_Animator_0 ?? null;
+                    yield return new WaitForSeconds(0.15f);
+
+                    if (playerAnim != null)
+                    {
+                        Debug.Msg("boneTransform", 3);
+                        boneTransform = playerAnim.GetBoneTransform(HumanBodyBones.Head) ?? null;
+                        yield return new WaitForSeconds(0.15f);
+                    }
+                }
+
+                if (levelController != null)
+                {
+                    Debug.Msg("emf", 3);
+                    emf = Object.FindObjectsOfType<EMF>().ToList<EMF>() ?? null;
                     yield return new WaitForSeconds(0.15f);
                 }
-            }
 
-            if (levelController != null)
-            {
-                Debug.Msg("emf", 3);
-                emf = Object.FindObjectsOfType<EMF>().ToList<EMF>() ?? null;
+                isRunning = false;
                 yield return new WaitForSeconds(0.15f);
+                Debug.Msg("-----------------------------", 3);
+
+                yield return null;
+            } finally {
+                if(isRunning) {
+                    Debug.Msg("Unexpected Error while collecting game objects.");
+                    isRunning = false;
+                }
             }
-
-            isRunning = false;
-            yield return new WaitForSeconds(0.15f);
-            Debug.Msg("-----------------------------", 3);
-
-            yield return null;
         }
 
         public static Transform boneTransform;
