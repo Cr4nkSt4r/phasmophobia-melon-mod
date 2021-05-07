@@ -190,6 +190,7 @@ namespace C4PhasMod
                         CheatToggles.guiDebug = false;
                         CheatToggles.guiTest = false;
                         CheatToggles.guiFeatureCollection = false;
+                        CheatToggles.guiAll = false;
                     }
                     if (CheatToggles.guiGhost == true)
                     {
@@ -234,6 +235,7 @@ namespace C4PhasMod
                         CheatToggles.guiDebug = false;
                         CheatToggles.guiTest = false;
                         CheatToggles.guiFeatureCollection = false;
+                        CheatToggles.guiAll = false;
                     }
                     if (CheatToggles.guiESP == true)
                     {
@@ -283,6 +285,7 @@ namespace C4PhasMod
                         CheatToggles.guiDebug = false;
                         CheatToggles.guiTest = false;
                         CheatToggles.guiFeatureCollection = false;
+                        CheatToggles.guiAll = false;
                     }
                     if (CheatToggles.guiHelper == true)
                     {
@@ -339,6 +342,7 @@ namespace C4PhasMod
                         CheatToggles.guiDebug = false;
                         CheatToggles.guiTest = false;
                         CheatToggles.guiFeatureCollection = false;
+                        CheatToggles.guiAll = false;
                     }
                     if (CheatToggles.guiTroll == true)
                     {
@@ -378,6 +382,7 @@ namespace C4PhasMod
                         CheatToggles.guiTroll = false;
                         CheatToggles.guiTest = false;
                         CheatToggles.guiFeatureCollection = false;
+                        CheatToggles.guiAll = false;
                     }
                     if (CheatToggles.guiDebug == true)
                     {
@@ -413,6 +418,7 @@ namespace C4PhasMod
                         CheatToggles.guiTroll = false;
                         CheatToggles.guiDebug = false;
                         CheatToggles.guiFeatureCollection = false;
+                        CheatToggles.guiAll = false;
                     }
                     if (CheatToggles.guiTest == true)
                     {
@@ -456,6 +462,7 @@ namespace C4PhasMod
                         CheatToggles.guiTroll = false;
                         CheatToggles.guiDebug = false;
                         CheatToggles.guiTest = false;
+                        CheatToggles.guiAll = false;
                     }
                     if (CheatToggles.guiFeatureCollection == true)
                     {
@@ -523,39 +530,190 @@ namespace C4PhasMod
                             Debug.Msg("Blinking Lights", 1);
                         }
                     }
+                    // Combines all elements of available gui options in the main scene so they can be activated easier instead of by toggle.
+                    if (GUI.Toggle(new Rect(500f, 142f, 150f, 20f), CheatToggles.guiAll, "All Features") != CheatToggles.guiAll)
+                    {
+                        CheatToggles.guiAll = !CheatToggles.guiAll;
+                        CheatToggles.guiFeatureCollection = false;
+                        CheatToggles.guiGhost = false;
+                        CheatToggles.guiGhostTroll = false;
+                        CheatToggles.guiESP = false;
+                        CheatToggles.guiHelper = false;
+                        CheatToggles.guiHelperInfo = false;
+                        CheatToggles.guiTroll = false;
+                        CheatToggles.guiDebug = false;
+                        CheatToggles.guiTest = false;
+                    }
+                    if (CheatToggles.guiAll == true)
+                    {
+                        // Feature collection section
+                        if (GUI.Button(new Rect(650f, 2f, 150f, 20f), "Hunt") && levelController != null)
+                        {
+                            Trolling.Hunt();
+                        }
+                        if (GUI.Button(new Rect(650f, 22f, 150f, 20f), "Idle") && levelController != null)
+                        {
+                            Trolling.Idle();
+                        }
+                        if (GUI.Button(new Rect(650f, 42f, 150f, 20f), "Appear") && levelController != null)
+                        {
+                            Trolling.Appear();
+                        }
+                        if (GUI.Button(new Rect(650f, 62f, 150f, 20f), "Unappear") && levelController != null)
+                        {
+                            Trolling.UnAppear();
+                        }
+                        if (GUI.Button(new Rect(800f, 2f, 150f, 20f), "Lock Exit Doors") && levelController != null)
+                        {
+                            Trolling.LockDoors(1);
+                        }
+                        if (GUI.Button(new Rect(800f, 22f, 150f, 20f), "Lock All Doors") && levelController != null)
+                        {
+                            Trolling.LockDoors(2);
+                        }
+                        if (GUI.Button(new Rect(800f, 42f, 150f, 20f), "Unlock Exit Doors") && levelController != null)
+                        {
+                            Trolling.LockDoors(3);
+                        }
+                        if (GUI.Button(new Rect(800f, 62f, 150f, 20f), "Unlock All Doors") && levelController != null)
+                        {
+                            Trolling.LockDoors(4);
+                        }
+                        if (GUI.Button(new Rect(800f, 82f, 150f, 20f), "Door knock") && levelController != null)
+                        {
+                            Trolling.EventDoorKnock();
+                        }
+                        if (GUI.Button(new Rect(800f, 102f, 150f, 20f), "Random Event") && levelController != null)
+                        {
+                            Trolling.Interact();
+                        }
+                        if (GUI.Button(new Rect(950f, 2f, 150f, 20f), "Random Light Use") && levelController != null)
+                        {
+                            LightSwitch lightSwitchr = lightSwitches[new System.Random().Next(0, lightSwitches.Count)];
+                            if (lightSwitchr != null)
+                            {
+                                lightSwitchr.UseLight();
+                            }
+                            Debug.Msg("Random Light Use", 1);
+                        }
+                        if (GUI.Button(new Rect(950f, 42f, 150f, 20f), "All Lights Off") && levelController != null)
+                        {
+                            foreach (LightSwitch lightSwitchaoff in lightSwitches)
+                            {
+                                lightSwitchaoff.TurnOff();
+                                lightSwitchaoff.TurnOffNetworked(true);
+                            }
+                            Debug.Msg("All Lights Off", 1);
+                        }
+                        if (GUI.Button(new Rect(950f, 62f, 150f, 20f), "Blinking Lights") && levelController != null)
+                        {
+                            lightSwitchToggle = !lightSwitchToggle;
+                            Debug.Msg("Blinking Lights", 1);
+                        }
+                        // Debug Section
+                        if (GUI.Toggle(new Rect(1100f, 2f, 100f, 20f), CheatToggles.enableDebug, "Enable Debug") != CheatToggles.enableDebug)
+                        {
+                            CheatToggles.enableDebug = !CheatToggles.enableDebug;
+                            Debug.Msg("Debug: Toggled " + (CheatToggles.enableDebug ? "On" : "Off"), 1);
+                        }
+                        if (GUI.Toggle(new Rect(1100f, 22f, 100f, 20f), Debug.debugMode1, "Debug Mode 1") != Debug.debugMode1)
+                        {
+                            Debug.debugMode1 = !Debug.debugMode1;
+                            Debug.Msg("Debug Mode 1: Toggled " + (Debug.debugMode1 ? "On" : "Off"), 1);
+                        }
+                        if (GUI.Toggle(new Rect(1100f, 42f, 100f, 20f), Debug.debugMode2, "Debug Mode 2") != Debug.debugMode2)
+                        {
+                            Debug.debugMode2 = !Debug.debugMode2;
+                            Debug.Msg("Debug Mode 2: Toggled " + (Debug.debugMode2 ? "On" : "Off"), 1);
+                        }
+                        if (GUI.Toggle(new Rect(1100f, 62f, 100f, 20f), Debug.debugMode3, "Debug Mode 3") != Debug.debugMode3)
+                        {
+                            Debug.debugMode3 = !Debug.debugMode3;
+                            Debug.Msg("Debug Mode 3: Toggled " + (Debug.debugMode3 ? "On" : "Off"), 1);
+                        }
+                        // Fullbright and basic info section
+                        if (GUI.Toggle(new Rect(1235f, 42f, 150f, 20f), CheatToggles.guiHelperInfo, "Basic Info") != CheatToggles.guiHelperInfo)
+                        {
+                            CheatToggles.guiHelperInfo = !CheatToggles.guiHelperInfo;
+                        }
+                        if (CheatToggles.guiHelperInfo == true)
+                        {
+                            if (GUI.Toggle(new Rect(1385f, 2f, 100f, 20f), CheatToggles.enableBIGhost, "Ghost Info") != CheatToggles.enableBIGhost)
+                            {
+                                CheatToggles.enableBIGhost = !CheatToggles.enableBIGhost;
+                                Debug.Msg("Ghost Info: Toggled " + (CheatToggles.enableBIGhost ? "On" : "Off"), 1);
+                            }
+                            if (GUI.Toggle(new Rect(1385f, 22f, 100f, 20f), CheatToggles.enableBIMissions, "Missions Info") != CheatToggles.enableBIMissions)
+                            {
+                                CheatToggles.enableBIMissions = !CheatToggles.enableBIMissions;
+                                Debug.Msg("Missions Info: Toggled " + (CheatToggles.enableBIMissions ? "On" : "Off"), 1);
+                            }
+                            if (GUI.Toggle(new Rect(1385f, 42f, 100f, 20f), CheatToggles.enableBIPlayer, "Player Info") != CheatToggles.enableBIPlayer)
+                            {
+                                CheatToggles.enableBIPlayer = !CheatToggles.enableBIPlayer;
+                                Debug.Msg("Player Info: Toggled " + (CheatToggles.enableBIPlayer ? "On" : "Off"), 1);
+                            }
+                        }
+                        if (GUI.Toggle(new Rect(1235f, 22f, 150f, 20f), CheatToggles.enableFullbright, "Enable Fullbright") != CheatToggles.enableFullbright)
+                        {
+                            CheatToggles.enableFullbright = !CheatToggles.enableFullbright;
+                            Debug.Msg("Fullbright: Toggled " + (CheatToggles.enableFullbright ? "On" : "Off"), 1);
+                            if (CheatToggles.enableFullbright)
+                            {
+                                Fullbright.Enable();
+                            }
+                            else
+                            {
+                                Fullbright.Disable();
+                            }
+                        }
+                        if (GUI.Toggle(new Rect(1235f, 2f, 150f, 20f), CheatToggles.enableHotkeys, "Enable Troll Hotkeys") != CheatToggles.enableHotkeys)
+                        {
+                            CheatToggles.enableHotkeys = !CheatToggles.enableHotkeys;
+                            Debug.Msg("Troll Hotkeys: Toggled " + (CheatToggles.enableHotkeys ? "On" : "Off"), 1);
+                            MelonPrefs.SetBool("Settings", "HotkeysEnabled", CheatToggles.enableHotkeys);
+                        }
+                        // ESP section
+                        if (GUI.Toggle(new Rect(1500f, 2f, 150f, 20f), CheatToggles.enableEspGhost, "Ghost ESP") != CheatToggles.enableEspGhost)
+                        {
+                            CheatToggles.enableEspGhost = !CheatToggles.enableEspGhost;
+                            Debug.Msg("Ghost ESP: Toggled " + (CheatToggles.enableEspGhost ? "On" : "Off"), 1);
+
+                        }
+                        if (GUI.Toggle(new Rect(1500f, 22f, 150f, 20f), CheatToggles.enableEspPlayer, "Player ESP") != CheatToggles.enableEspPlayer)
+                        {
+                            CheatToggles.enableEspPlayer = !CheatToggles.enableEspPlayer;
+                            Debug.Msg("Player ESP: Toggled " + (CheatToggles.enableEspPlayer ? "On" : "Off"), 1);
+
+                        }
+                        if (GUI.Toggle(new Rect(1500f, 42f, 150f, 20f), CheatToggles.enableEspBone, "Bone ESP") != CheatToggles.enableEspBone)
+                        {
+                            CheatToggles.enableEspBone = !CheatToggles.enableEspBone;
+                            Debug.Msg("Bone ESP: Toggled " + (CheatToggles.enableEspBone ? "On" : "Off"), 1);
+
+                        }
+                        if (GUI.Toggle(new Rect(1500f, 62f, 150f, 20f), CheatToggles.enableEspOuija, "Ouija ESP") != CheatToggles.enableEspOuija)
+                        {
+                            CheatToggles.enableEspOuija = !CheatToggles.enableEspOuija;
+                            Debug.Msg("Ouija ESP: Toggled " + (CheatToggles.enableEspOuija ? "On" : "Off"), 1);
+
+                        }
+                        if (GUI.Toggle(new Rect(1500f, 82f, 150f, 20f), CheatToggles.enableEspFuseBox, "FuseBox ESP") != CheatToggles.enableEspFuseBox)
+                        {
+                            CheatToggles.enableEspFuseBox = !CheatToggles.enableEspFuseBox;
+                            Debug.Msg("FuseBox ESP: Toggled " + (CheatToggles.enableEspFuseBox ? "On" : "Off"), 1);
+                        }
+                        if (GUI.Toggle(new Rect(1500f, 102f, 150f, 20f), CheatToggles.enableEspEmf, "Emf ESP") != CheatToggles.enableEspEmf)
+                        {
+                            CheatToggles.enableEspEmf = !CheatToggles.enableEspEmf;
+                            Debug.Msg("Emf ESP: Toggled " + (CheatToggles.enableEspEmf ? "On" : "Off"), 1);
+                        }
+                    }
                 }
                 else
                 {
                     if (initializedScene == 1 && playerStatsManager != null)
                     {
-                        if (GUI.Button(new Rect(500f, 2f, 150f, 20f), "+ 1.000$") && levelController == null)
-                        {
-                            var money = FileBasedPrefs.GetInt("PlayersMoney", 0);
-                            Debug.Msg("Money set from " + money + " to " + (money + 1000), 1);
-                            FileBasedPrefs.SetInt("PlayersMoney", money + 1000);
-                            playerStatsManager.UpdateMoney();
-                        }
-                        if (GUI.Button(new Rect(500f, 22f, 150f, 20f), "- 1.000$") && levelController == null)
-                        {
-                            var money = FileBasedPrefs.GetInt("PlayersMoney", 0);
-                            Debug.Msg("Money set from " + money + " to " + (money - 1000), 1);
-                            FileBasedPrefs.SetInt("PlayersMoney", money - 1000);
-                            playerStatsManager.UpdateMoney();
-                        }
-                        if (GUI.Button(new Rect(500f, 42f, 150f, 20f), "+ 100XP") && levelController == null)
-                        {
-                            FileBasedPrefs.SetInt("myTotalExp", FileBasedPrefs.GetInt("myTotalExp", 0) + 100);
-                            playerStatsManager.UpdateExperience();
-                            playerStatsManager.UpdateLevel();
-                            Debug.Msg("XP: +100", 1);
-                        }
-                        if (GUI.Button(new Rect(500f, 62f, 150f, 20f), "- 1.000XP") && levelController == null)
-                        {
-                            FileBasedPrefs.SetInt("myTotalExp", FileBasedPrefs.GetInt("myTotalExp", 0) - 1000);
-                            playerStatsManager.UpdateExperience();
-                            playerStatsManager.UpdateLevel();
-                            Debug.Msg("XP: -1.000", 1);
-                        }
                         if (GUI.Toggle(new Rect(500f, 82f, 150f, 20f), CheatToggles.guiDebug, "Debug GUI") != CheatToggles.guiDebug)
                         {
                             CheatToggles.guiDebug = !CheatToggles.guiDebug;
@@ -567,25 +725,26 @@ namespace C4PhasMod
                             CheatToggles.guiTroll = false;
                             CheatToggles.guiTest = false;
                             CheatToggles.guiFeatureCollection = false;
+                            CheatToggles.guiAll = false;
                         }
                         if (CheatToggles.guiDebug == true)
                         {
-                            if (GUI.Toggle(new Rect(550f, 102f, 150f, 20f), CheatToggles.enableDebug, "Enable Debug") != CheatToggles.enableDebug)
+                            if (GUI.Toggle(new Rect(550f, 2f, 150f, 20f), CheatToggles.enableDebug, "Enable Debug") != CheatToggles.enableDebug)
                             {
                                 CheatToggles.enableDebug = !CheatToggles.enableDebug;
                                 Debug.Msg("Debug: Toggled " + (CheatToggles.enableDebug ? "On" : "Off"), 1);
                             }
-                            if (GUI.Toggle(new Rect(550f, 122f, 150f, 20f), Debug.debugMode1, "Debug Mode 1") != Debug.debugMode1)
+                            if (GUI.Toggle(new Rect(550f, 22f, 150f, 20f), Debug.debugMode1, "Debug Mode 1") != Debug.debugMode1)
                             {
                                 Debug.debugMode1 = !Debug.debugMode1;
                                 Debug.Msg("Debug Mode 1: Toggled " + (Debug.debugMode1 ? "On" : "Off"), 1);
                             }
-                            if (GUI.Toggle(new Rect(550f, 142f, 150f, 20f), Debug.debugMode2, "Debug Mode 2") != Debug.debugMode2)
+                            if (GUI.Toggle(new Rect(550f, 42f, 150f, 20f), Debug.debugMode2, "Debug Mode 2") != Debug.debugMode2)
                             {
                                 Debug.debugMode2 = !Debug.debugMode2;
                                 Debug.Msg("Debug Mode 2: Toggled " + (Debug.debugMode2 ? "On" : "Off"), 1);
                             }
-                            if (GUI.Toggle(new Rect(550f, 162f, 150f, 20f), Debug.debugMode3, "Debug Mode 3") != Debug.debugMode3)
+                            if (GUI.Toggle(new Rect(550f, 62f, 150f, 20f), Debug.debugMode3, "Debug Mode 3") != Debug.debugMode3)
                             {
                                 Debug.debugMode3 = !Debug.debugMode3;
                                 Debug.Msg("Debug Mode 3: Toggled " + (Debug.debugMode3 ? "On" : "Off"), 1);

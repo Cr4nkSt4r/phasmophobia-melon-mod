@@ -44,14 +44,30 @@ namespace C4PhasMod
             Process targetProcess = Process.GetProcessesByName("Phasmophobia")[0];
             IntPtr procHandle = OpenProcess(PROCESS_CREATE_THREAD | PROCESS_QUERY_INFORMATION | PROCESS_VM_OPERATION | PROCESS_VM_WRITE | PROCESS_VM_READ, false, targetProcess.Id);
             IntPtr loadLibraryAddr = GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA");
-            string dllName = Directory.GetCurrentDirectory()+ "\\PhasBypass.dll";
-            IntPtr allocMemAddress = VirtualAllocEx(procHandle, IntPtr.Zero, (uint)((dllName.Length + 1) * Marshal.SizeOf(typeof(char))), MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
-            UIntPtr bytesWritten;
-            MelonLogger.Log("Injecting the bypass...");
-            if(WriteProcessMemory(procHandle, allocMemAddress, Encoding.Default.GetBytes(dllName), (uint)((dllName.Length + 1) * Marshal.SizeOf(typeof(char))), out bytesWritten))
+            string dllName = Directory.GetCurrentDirectory() + "\\PhasBypass.dll";
+            if(File.Exists(dllName))
             {
-                MelonLogger.Log("Success!");
-                CreateRemoteThread(procHandle, IntPtr.Zero, 0, loadLibraryAddr, allocMemAddress, 0, IntPtr.Zero);
+                IntPtr allocMemAddress = VirtualAllocEx(procHandle, IntPtr.Zero, (uint)((dllName.Length + 1) * Marshal.SizeOf(typeof(char))), MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+                UIntPtr bytesWritten;
+                MelonLogger.Log("Injecting PhasBypass.dll...");
+                if (WriteProcessMemory(procHandle, allocMemAddress, Encoding.Default.GetBytes(dllName), (uint)((dllName.Length + 1) * Marshal.SizeOf(typeof(char))), out bytesWritten))
+                {
+                    IntPtr tHandle = CreateRemoteThread(procHandle, IntPtr.Zero, 0, loadLibraryAddr, allocMemAddress, 0, IntPtr.Zero);
+                    if (tHandle != IntPtr.Zero)
+                    {
+                        MelonLogger.Log("PhasBypass.dll successfully injected!");
+                    }
+                    else
+                    {
+                        MelonLogger.Log("PhasBypass.dll can't be injected!");
+                        MelonLogger.Log("Please restart the game!");
+                    }
+                }
+            }
+            else
+            {
+                MelonLogger.Log("PhasBypass.dll not found!");
+                MelonLogger.Log("Please restart the game!");
             }
             return 0;
         }

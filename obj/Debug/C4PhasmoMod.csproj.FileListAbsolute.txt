@@ -1,0 +1,6 @@
+C:\Users\Justin\Desktop\phasmophobia-melon-mod-master (3)\phasmophobia-melon-mod-master\bin\Debug\C4PhasMod.dll
+C:\Users\Justin\Desktop\phasmophobia-melon-mod-master (3)\phasmophobia-melon-mod-master\bin\Debug\C4PhasMod.pdb
+C:\Users\Justin\Desktop\phasmophobia-melon-mod-master (3)\phasmophobia-melon-mod-master\obj\Debug\C4PhasmoMod.csprojAssemblyReference.cache
+C:\Users\Justin\Desktop\phasmophobia-melon-mod-master (3)\phasmophobia-melon-mod-master\obj\Debug\C4PhasmoMod.csproj.CoreCompileInputs.cache
+C:\Users\Justin\Desktop\phasmophobia-melon-mod-master (3)\phasmophobia-melon-mod-master\obj\Debug\C4PhasMod.dll
+C:\Users\Justin\Desktop\phasmophobia-melon-mod-master (3)\phasmophobia-melon-mod-master\obj\Debug\C4PhasMod.pdb

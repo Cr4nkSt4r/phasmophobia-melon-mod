@@ -21,6 +21,7 @@
         public static bool enableHotkeys = true;
 
         public static bool guiEnabled = false;
+        public static bool guiAll = false;
 
         public static bool guiGhost = false;
         public static bool guiGhostTroll = false;
